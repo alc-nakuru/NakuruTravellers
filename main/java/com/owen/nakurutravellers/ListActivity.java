@@ -35,38 +35,58 @@ public class ListActivity extends AppCompatActivity {
         mChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                //set the title of the travels from the database;
-                TextView tvDeals = (TextView) findViewById(R.id.tvTDeals);
+                
+                
+                
+                   RecyclerView rvDeal = (RecyclerView) findViewById(R.id.rv_travelDeals);
 
-                 TravelDeals td = dataSnapshot.getValue(TravelDeals.class);
+        final  DealsTraAdapter  dealsTraAdapter = new DealsTraAdapter();
 
-                 tvDeals.setText(tvDeals.getText() + "\n" +  td.getTitle());
+        rvDeal.setAdapter(dealsTraAdapter);
 
-            }
+        LinearLayoutManager dealsLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+        rvDeal.setLayoutManager(dealsLinearLayoutManager);   RecyclerView rvDeal = (RecyclerView) findViewById(R.id.rv_travelDeals);
 
-            }
+        final  DealsTraAdapter  dealsTraAdapter = new DealsTraAdapter();
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+        rvDeal.setAdapter(dealsTraAdapter);
 
-            }
+        LinearLayoutManager dealsLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+        rvDeal.setLayoutManager(dealsLinearLayoutManager);
+//                 //set the title of the travels from the database;
+//                 TextView tvDeals = (TextView) findViewById(R.id.tvTDeals);
 
-            }
+//                  TravelDeals td = dataSnapshot.getValue(TravelDeals.class);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                  tvDeals.setText(tvDeals.getText() + "\n" +  td.getTitle());
 
-            }
-        };
+//             }
 
-        //add a listener to check if there is changes in the firebase
-        mDatabaseReference.addChildEventListener(mChildEventListener);
+//             @Override
+//             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-    }
+//             }
+
+//             @Override
+//             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+//             }
+
+//             @Override
+//             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+//             }
+
+//             @Override
+//             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+//             }
+//         };
+
+//         //add a listener to check if there is changes in the firebase
+//         mDatabaseReference.addChildEventListener(mChildEventListener);
+
+//     }
 }
