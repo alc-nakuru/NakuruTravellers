@@ -55,38 +55,37 @@ public class ListActivity extends AppCompatActivity {
         LinearLayoutManager dealsLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
         rvDeal.setLayoutManager(dealsLinearLayoutManager);
-//                 //set the title of the travels from the database;
-//                 TextView tvDeals = (TextView) findViewById(R.id.tvTDeals);
+                 //set the title of the travels from the database;
+                TextView tvDeals = (TextView) findViewById(R.id.tvTDeals);
 
-//                  TravelDeals td = dataSnapshot.getValue(TravelDeals.class);
+                TravelDeals td = dataSnapshot.getValue(TravelDeals.class);
 
-//                  tvDeals.setText(tvDeals.getText() + "\n" +  td.getTitle());
+                tvDeals.setText(tvDeals.getText() + "\n" +  td.getTitle());
 
-//             }
+         }
 
-//             @Override
-//             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+           @Override
+             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-//             }
+            }
 
-//             @Override
-//             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+            @Override
+             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
-//             }
+            }
 
-//             @Override
-//             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+           @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-//             }
+            }
 
-//             @Override
-//             public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-//             }
-//         };
+            }        };
 
-//         //add a listener to check if there is changes in the firebase
-//         mDatabaseReference.addChildEventListener(mChildEventListener);
+        //add a listener to check if there is changes in the firebase
+        mDatabaseReference.addChildEventListener(mChildEventListener);
 
-//     }
+   }
 }
