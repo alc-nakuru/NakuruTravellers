@@ -28,8 +28,10 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mDatabaseReference = mFirebaseDatabase.getReference();
+       FirebaseUtil.openfbReference("traveldeals");
+
+        mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
+        mDatabaseReference =FirebaseUtil.mDatabaseReference;
 
         //create the events that will check on all Firebase Changes;
         mChildEventListener = new ChildEventListener() {
