@@ -1,29 +1,26 @@
-package com.owen.nakurutravellers;
+package com.owen.travelmantics;
 
-public class TravelDeals {
+import java.io.Serializable;
+
+public class TravelDeal implements Serializable {
 
     private String id;
-    private String price;
     private String title;
     private String description;
+    private String price;
     private String imageUrl;
 
-    //create an empty constructor;
-    public TravelDeals()
-    {
-
-    }
+    //create an empty constructor
+    public TravelDeal(){}
 
 
-
-    public TravelDeals( String price, String title, String description, String imageUrl) {
+    public TravelDeal( String title, String description, String price, String imageUrl) {
         this.setId(id);
-        this.setPrice(price);
         this.setTitle(title);
         this.setDescription(description);
+        this.setPrice(price);
         this.setImageUrl(imageUrl);
     }
-
 
     public String getId() {
         return id;
@@ -31,14 +28,6 @@ public class TravelDeals {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 
     public String getTitle() {
@@ -55,6 +44,14 @@ public class TravelDeals {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public String getImageUrl() {
