@@ -27,67 +27,12 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+            RecyclerView rvDeals = (RecyclerView) findViewById(R.id.rvDeals);
+        final  DealAdapter adapter = new DealAdapter();
+        rvDeals.setAdapter(adapter);
 
-       FirebaseUtil.openfbReference("traveldeals");
+        LinearLayoutManager dealLayoutmanager =  new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
-        mDatabaseReference =FirebaseUtil.mDatabaseReference;
+        rvDeals.setLayoutManager(dealLayoutmanager);
 
-        //create the events that will check on all Firebase Changes;
-        mChildEventListener = new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                
-                
-                
-                   RecyclerView rvDeal = (RecyclerView) findViewById(R.id.rv_travelDeals);
-
-        final  DealsTraAdapter  dealsTraAdapter = new DealsTraAdapter();
-
-        rvDeal.setAdapter(dealsTraAdapter);
-
-        LinearLayoutManager dealsLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-
-        rvDeal.setLayoutManager(dealsLinearLayoutManager);   RecyclerView rvDeal = (RecyclerView) findViewById(R.id.rv_travelDeals);
-
-        final  DealsTraAdapter  dealsTraAdapter = new DealsTraAdapter();
-
-        rvDeal.setAdapter(dealsTraAdapter);
-
-        LinearLayoutManager dealsLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-
-        rvDeal.setLayoutManager(dealsLinearLayoutManager);
-                 //set the title of the travels from the database;
-                TextView tvDeals = (TextView) findViewById(R.id.tvTDeals);
-
-                TravelDeals td = dataSnapshot.getValue(TravelDeals.class);
-
-                tvDeals.setText(tvDeals.getText() + "\n" +  td.getTitle());
-
-         }
-
-           @Override
-             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-           @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }        };
-
-        //add a listener to check if there is changes in the firebase
-        mDatabaseReference.addChildEventListener(mChildEventListener);
-
-   }
 }
