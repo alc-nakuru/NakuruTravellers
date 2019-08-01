@@ -36,3 +36,10 @@ public class ListActivity extends AppCompatActivity {
         rvDeals.setLayoutManager(dealLayoutmanager);
 
 }
+    
+     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.list_activity_menu, menu);
+        return true;
+    }
