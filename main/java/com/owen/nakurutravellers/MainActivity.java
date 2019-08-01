@@ -32,11 +32,10 @@ public class MainActivity extends AppCompatActivity {
         etDesc = (EditText)findViewById(R.id.txtDescription);
         etPrice = (EditText)findViewById(R.id.txtPrice);
         etTitle = (EditText)findViewById(R.id.txtTitle);
+ FirebaseUtil.openfbReference("traveldeals");
 
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        //create a store for the values to save in
-        mDatabaseReference = mFirebaseDatabase.getReference().child("Traveellers");
-
+        mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
+        mDatabaseReference =FirebaseUtil.mDatabaseReference;
         //AddChildReferncer to listner to the changes
 
 
