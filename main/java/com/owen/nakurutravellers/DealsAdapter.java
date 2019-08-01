@@ -1,6 +1,7 @@
-package com.owen.nakurutravellers;
+package com.owen.travelmantics;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,36 +20,30 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class DealsTraAdapter extends RecyclerView.Adapter<DealsTraAdapter.DealViewHolder>
+public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder>
 {
-    ArrayList<TravelDeals> travelDealsArray;
+
+    ArrayList<TravelDeal> deals;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
-    private ChildEventListener mChildEventListener;
+    private ChildEventListener mChildListener;
+    //create a public constructor
 
+    public DealAdapter(){
 
-
-    public DealsTraAdapter()
-    {
-
-        FirebaseUtils.openFireRef("Traveellers");
-        mFirebaseDatabase = FirebaseUtils.mFirebaseDatabase;
-        mDatabaseReference =FirebaseUtils.mDatabaseReference;
-        travelDealsArray = FirebaseUtils.mDeals;
-       mDatabaseReference.addChildEventListener(mChildEventListener);
-
-
-        mChildEventListener = new ChildEventListener() {
+        mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
+        mDatabaseReference =FirebaseUtil.mDatabaseReference;
+        deals = FirebaseUtil.mDeals;
+        mChildListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                //populate the data on a textView to show to the User
 
-                TravelDeals td = dataSnapshot.getValue(TravelDeals.class);
-
-                Log.d("Deals", td.getTitle());
+                TravelDeal td = dataSnapshot.getValue(TravelDeal.class);
+                Log.d("Deal: " , td.getTitle());
                 td.setId(dataSnapshot.getKey());
-                travelDealsArray.add(td);
-                notifyItemInserted(travelDealsArray.size()-1);
-
+                deals.add(td);
+                notifyItemInserted(deals.size()-1);
             }
 
             @Override
@@ -71,15 +66,17 @@ public class DealsTraAdapter extends RecyclerView.Adapter<DealsTraAdapter.DealVi
 
             }
         };
+        mDatabaseReference.addChildEventListener(mChildListener);
+
     }
 
     @NonNull
     @Override
-    public DealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
+    public DealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         Context context = parent.getContext();
         View itemView = LayoutInflater.from(context)
-                .inflate(R.layout.rv_deals, parent, false);
+                .inflate(R.layout.rv_row, parent,false);
 
         return new DealViewHolder(itemView);
     }
@@ -87,31 +84,47 @@ public class DealsTraAdapter extends RecyclerView.Adapter<DealsTraAdapter.DealVi
     @Override
     public void onBindViewHolder(@NonNull DealViewHolder holder, int position)
     {
-        TravelDeals deal = travelDealsArray.get(position);
+        TravelDeal deal = deals.get(position);
         holder.bindData(deal);
-
     }
 
     @Override
     public int getItemCount() {
-
-        return travelDealsArray.size();
+        return deals.size();
     }
 
-    public class DealViewHolder extends RecyclerView.ViewHolder
-    {
+    public class DealViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener{
         TextView tvTitle;
+        TextView tvDescription;
+        TextView tvPrice;
 
-        public DealViewHolder(@NonNull View itemView)
-        {
+        public DealViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitleDeals);
+
+            tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
+            tvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
+            tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
+
+            itemView.setOnClickListener(this);
+
+        }
+        public void bindData(TravelDeal deal)
+        {
+            tvTitle.setText(deal.getTitle());
+            tvDescription.setText(deal.getDescription());
+            tvPrice.setText(deal.getPrice());
         }
 
-        public void bindData(TravelDeals deals)
+        //check which view has been Clicked
+        @Override
+        public void onClick(View view)
         {
-            tvTitle.setText(deals.getTitle());
+            int position = getAdapterPosition();
+            Log.d("Clicked ", String.valueOf(position));
+            TravelDeal selectedDeal = deals.get(position);
+            Intent intent =new Intent(view.getContext(), DealActivity.class);
+            intent.putExtra("Deal", selectedDeal);
+            view.getContext().startActivity(intent);
         }
     }
-
 }
